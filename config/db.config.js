@@ -8,7 +8,7 @@ const dbConn = mysql.createConnection({
     port: 8889,
     user: 'root',
     password: 'root',
-    database: 'dispatch_risk'
+    database: 'database_name'
 });
 
 dbConn.connect(function (err) {
