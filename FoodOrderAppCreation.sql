@@ -4,7 +4,10 @@ CREATE TABLE user(
 uid INT PRIMARY KEY AUTO_INCREMENT,
 pwd VARCHAR(255),
 firstname VARCHAR(40),
-lastname VARCHAR(40)
+lastname VARCHAR(40),
+email VARCHAR(255),
+created_at DATE,
+updated_at DATE
 );
 
 CREATE TABLE mealplan(
