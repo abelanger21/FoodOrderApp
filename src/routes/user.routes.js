@@ -4,8 +4,8 @@ const userController = require('../controllers/user.controller');
 const {verifyToken} = require("../middlewares/auth");
 
 //get all users  
-router.get('/',verifyToken, userController.findAll);
-
+// router.get('/',verifyToken, userController.findAll);
+router.get('/', userController.findAll);
 //fetch all
 router.get('/:id', userController.findById);
 

@@ -54,14 +54,15 @@ exports.create = function (req, res) {
         res.status(400).send({ errors: true, message: 'Please provide all required field' });
         return;
     } 
-    let data = {
-        firstname: req.body.firstname, 
-        lastname: req.body.lastname, 
-        email: req.body.email, 
-        role: process.env.ROLE_EMPLOYEE, 
-        password: "_default_password"    
-    };
-    const user = new User(data);
+    // let data = {
+    //     firstname: req.body.firstname,
+    //     lastname: req.body.lastname,
+    //     email: req.body.email,
+    //     role: process.env.ROLE_EMPLOYEE,
+    //     password: "_default_password"
+    // };
+    // const user = new User(data);
+    const user = new User(req.body)
     
     //check if user exist
     User.findByEmail(user.email, function (err, user_) {
@@ -103,15 +104,15 @@ exports.update = function (req, res) {
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
         res.status(400).send({ errors: true, message: 'Please provide all required field' });
     } else {
-        User.update(req.body.id, new User(req.body), function (err, user) {
+        User.update(new User(req.body), function (err, user) {
             if (err)
                 res.send(err);
             res.json({ errors: false, message: 'User successfully updated' });
         });
     }
 };
-exports.delete = function (req, res) {
-    User.delete(req.params.id, function (err, user) {
+exports.deleteByEmail = function (req, res) {
+    User.deleteByEmail(req.params.id, function (err, user) {
         if (err)
             res.send(err);
         res.json({ errors: false, message: 'User successfully deleted' });
@@ -135,8 +136,8 @@ function generateToken(email) {
 
 
  exports.updatePassword = function (req, res) {
-    const {email, password}= req.body;
-    User.updatePwd(password, email, function (err, result) {
+    const {email, pwd}= req.body;
+    User.updatePwd(pwd, email, function (err, result) {
         if (err){
             res.send(err);
         }
