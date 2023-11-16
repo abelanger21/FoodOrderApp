@@ -27,7 +27,7 @@ Mealplan.create = function (mealplan, result) {
 
 
 Mealplan.findById = function (planid, result) {
-    dbConn.query("Select * from mealplan where id = ? ", planid, function (err, res) {
+    dbConn.query("Select * from mealplan where planid = ? ", planid, function (err, res) {
         if (err) {
             console.log("errors: ", err);
             result(err, null);
