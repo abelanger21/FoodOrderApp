@@ -1,5 +1,4 @@
 const Order = require('../models/order.model');
-const User = require("../models/user.model");
 
 exports.create = function (req, res) {
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
@@ -35,9 +34,21 @@ exports.update = function (req, res) {
     }
 };
 
+
 exports.findById = function (req, res) {
     var id=req.params.id
     Order.findById(id, function (err, orders) {
+
+        if (err)
+            res.send(err);
+
+        res.status(200).json({errors: false, data:orders});
+    });
+};
+
+exports.findByUserId = function (req, res) {
+    var id=req.params.id
+    Order.findByUserId(id, function (err, orders) {
 
         if (err)
             res.send(err);

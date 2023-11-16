@@ -31,6 +31,17 @@ Order.findById = function (id, result) {
         }
     });
 };
+Order.findByUserId = function (id, result) {
+    dbConn.query("Select * FROM orders WHERE userid = ? ", id, function (err, res) {
+        if (err) {
+            console.log("errors: ", err);
+            result(err, null);
+        }
+        else {
+            result(null, res);
+        }
+    });
+};
 
 Order.findAll = function (result){
     dbConn.query("SELECT * FROM orders", function (err, res) {
@@ -39,7 +50,7 @@ Order.findAll = function (result){
             result(null, err);
         }
         else {
-            console.log('user : ', res);
+            console.log('order : ', res);
             result(null, res);
         }
     });
@@ -47,7 +58,7 @@ Order.findAll = function (result){
 
 Order.update = function (order, id, result) {
     console.log(order)
-    dbConn.query("UPDATE orders SET userid=?,lastname=? WHERE orderid = ?", [order.userid, order.cdate, id], function (err, res) {
+    dbConn.query("UPDATE orders SET userid=?,cdate=? WHERE orderid = ?", [order.userid, order.cdate, id], function (err, res) {
         if (err) {
             console.log("errors: ", err);
             result(null, err);
@@ -58,7 +69,7 @@ Order.update = function (order, id, result) {
 };
 
 Order.deleteById = function (id, result) {
-    dbConn.query("DELETE FROM orders WHERE id = ?", [id], function (err, res) {
+    dbConn.query("DELETE FROM orders WHERE orderid = ?", [id], function (err, res) {
         if (err) {
             console.log("errors: ", err);
             result(null, err);
