@@ -37,7 +37,6 @@ User.create = function (user, result) {
 
 User.login = function (email,password, result) {
     var sql="Select * from user where email = ? ";
-    sql="SELECT * FROM `user` WHERE user.email = ?"
     dbConn.query(sql, email, function (err, res) {
         if (err) {
             console.log("errors: ", err);

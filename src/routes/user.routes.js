@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const userController = require('../controllers/user.controller');
 const {verifyToken} = require("../middlewares/auth");
 
@@ -10,10 +10,10 @@ router.get('/', userController.findAll);
 router.get('/:id', userController.findById);
 
 //login  
-router.post("/",userController.login)
+router.post("/",userController.login);
 
 //login  
-router.post("/create",userController.create)
+router.post("/create",userController.create);
 
 
 // Update password
