@@ -35,7 +35,7 @@ app.use(express.static('public'));
 
 // define a root route
 app.get('/', (req, res) => {
-  res.send("Hello World");
+    res.sendFile(__dirname + '/src/views/home.html')
 });
 
 

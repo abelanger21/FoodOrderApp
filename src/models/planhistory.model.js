@@ -74,4 +74,4 @@ Planhistory.delete = function (planhistory, result) {
         }
     });
 };
-module.exports = Mealplan;
+module.exports = Planhistory;
