@@ -42,12 +42,18 @@ app.get('/', (req, res) => {
 // Require [user] routes
 const userRoutes = require('./src/routes/user.routes')
 const orderRoutes = require('./src/routes/order.routes')
+const menuRoutes = require('./src/routes/menu.routes')
+const mealPlanRoutes = require('./src/routes/mealplan.routes')
+const planHistoryRoutes = require('./src/routes/planhistory.routes')
 
 app.use(cookieParser());
 
 // using as middleware
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/menus', menuRoutes)
+app.use('/api/plans', mealPlanRoutes)
+app.use('/api/planhistory', planHistoryRoutes)
 
 // listen for requests
 app.listen(port, () => {
