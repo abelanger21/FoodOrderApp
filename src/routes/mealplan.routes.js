@@ -4,19 +4,19 @@ const mealplanController = require('../controllers/mealplan.controller');
 const {verifyToken} = require("../middlewares/auth");
 
 //get all users  
-router.get('/',verifyToken, mealplanController.findAll);
+router.get('/', verifyToken, mealplanController.findAll);
 
 //fetch all
-router.get('/:id', mealplanController.findById);
+router.get('/:id', verifyToken, mealplanController.findById);
 
 //create 
-router.post("/create", mealplanController.create);
+router.post("/create", verifyToken, mealplanController.create);
 
 // Updates the employee
-router.put('/update', mealplanController.update);
+router.put('/update', verifyToken, mealplanController.update);
 
 // deletes the mealplan
-router.put('/delete', mealplanController.delete);
+router.put('/delete', verifyToken, mealplanController.delete);
 
 
 

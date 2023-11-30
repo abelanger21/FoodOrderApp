@@ -2,9 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Home Page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
-    <h1>hello web app</h1>
+    <h1>Food Order App</h1>
+    <h3>Order Food</h3>
+    <div>
+        <select id="menuid" class="js-data-example-ajax" placeholder="select menu item" name="menuid">
+            <option value="" disabled selected>Select Menu Item</option>
+        </select>
+        <button onclick="newOrder()">Submit</button>
+    </div>
+    <h3>Order History</h3>
+
+    <script>
+        $.getJSON((window.location + 'api/menus'), function(data) {
+            // JSON result in `data` variable
+            $.each(data.data, function (i, item) {
+                $('#menuid').append($('<option>', {
+                    value: item.menuid,
+                    text : item.foodname
+                }));
+            });
+        });
+
+        function newOrder(){
+            var menuid= document.getElementById('menuid').value
+            alert(menuid)
+        }
+    </script>
 </body>
 </html>
