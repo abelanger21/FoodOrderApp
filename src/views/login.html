@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login Page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <!-- Importing the Jquery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+<h1> Login</h1>
+<div>
+    <input type="text" placeholder="enter your email" id="email" name="email" />
+    <input type="password" placeholder="enter your password" id="pwd" name="pwd" />
+    <button onclick="postCall()"> Login</button>
+</div>
+
+
+<script>
+
+    function postCall(){
+        // $.post(URL,data,callback); -- Syntax
+
+        //get the user inputs from the form
+        var email= document.getElementById('email').value
+        var pwd= document.getElementById('pwd').value
+        var url=`http://localhost:4001/api/users`;
+        var data = {
+            'email': email,
+            'password': pwd
+        }
+
+        //alert(url);
+        console.log(data)
+        //alert(data);
+
+        $.post(url,
+            data,
+            function(data, status){
+                console.log(data)
+                //alert("Data: " + data + "\nStatus: " + status);
+                if(data['errors'] == false){
+                    location.href = location.href.substring(0, location.href.length - 6)
+                }
+            });
+    }
+</script>
+
+</body>
+</html>

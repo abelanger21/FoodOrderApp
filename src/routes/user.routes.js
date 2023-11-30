@@ -5,23 +5,21 @@ const {verifyToken} = require("../middlewares/auth");
 
 //get all users  
 // router.get('/',verifyToken, userController.findAll);
-router.get('/', userController.findAll);
+router.get('/', verifyToken, userController.findAll);
 //fetch all
-router.get('/:id', userController.findById);
+router.get('/:id', verifyToken, userController.findById);
 
 //login  
-router.post("/",userController.login);
+router.post("/", userController.login);
 
 //login  
-router.post("/create",userController.create);
-
+router.post("/create", verifyToken, userController.create);
 
 // Update password
-router.post('/change_password', userController.updatePassword);
-
+router.post('/change_password', verifyToken, userController.updatePassword);
 
 // Updates the employee
-router.put('/update', userController.update);
+router.put('/update', verifyToken, userController.update);
 
 
 

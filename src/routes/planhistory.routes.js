@@ -7,16 +7,16 @@ const {verifyToken} = require("../middlewares/auth");
 router.get('/',verifyToken, planhistoryController.findAll);
 
 //fetch all
-router.get('/:id', planhistoryController.findById);
+router.get('/:id', verifyToken, planhistoryController.findById);
 
 //create 
-router.post("/create", planhistoryController.create);
+router.post("/create", verifyToken, planhistoryController.create);
 
 // Updates the plan history
-router.put('/update', planhistoryController.update);
+router.put('/update', verifyToken, planhistoryController.update);
 
 // deletes the plan history
-router.put('/delete', planhistoryController.delete);
+router.put('/delete', verifyToken, planhistoryController.delete);
 
 
 

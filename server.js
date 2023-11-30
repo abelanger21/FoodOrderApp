@@ -33,10 +33,9 @@ app.use(
 app.use(express.static('public'));
 
 
+
 // define a root route
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/src/views/home.html')
-});
+
 
 
 // Require [user] routes
@@ -46,10 +45,12 @@ const orderFoodRoutes = require('./src/routes/order_food.routes')
 const menuRoutes = require('./src/routes/menu.routes')
 const mealPlanRoutes = require('./src/routes/mealplan.routes')
 const planHistoryRoutes = require('./src/routes/planhistory.routes')
+const viewsRoutes = require('./src/routes/views.routes')
 
 app.use(cookieParser());
 
 // using as middleware
+app.use('/', viewsRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/orderfood', orderFoodRoutes)
