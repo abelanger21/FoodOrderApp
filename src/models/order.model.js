@@ -1,9 +1,9 @@
 var dbConn= require('../../config/db.config');
 const {DATETIME} = require("mysql/lib/protocol/constants/types");
 
-var Order = function (order){
-    this.userid = order.userid;
-    this.cdate = order.cdate;
+var Order = function (userId){
+    this.userid = userId;
+    this.cdate = new Date();
 }
 
 Order.create = function (order, result){
@@ -13,7 +13,6 @@ Order.create = function (order, result){
             result(err, null);
         }
         else {
-            console.log(res.insertId);
             result(null, res.insertId);
             // result(null, user.email);
         }
@@ -33,6 +32,18 @@ Order.findById = function (id, result) {
 };
 Order.findByUserId = function (id, result) {
     dbConn.query("Select * FROM orders WHERE userid = ? ", id, function (err, res) {
+        if (err) {
+            console.log("errors: ", err);
+            result(err, null);
+        }
+        else {
+            result(null, res);
+        }
+    });
+};
+
+Order.findByUserIdWithFoods = function (id, result) {
+    dbConn.query("Select * FROM orders JOIN order_foods ON orders.orderid  = order_foods.orderid JOIN menu ON menu.menuid = order_foods.menuid WHERE orders.userid = ? ORDER BY orders.cdate DESC", id, function (err, res) {
         if (err) {
             console.log("errors: ", err);
             result(err, null);

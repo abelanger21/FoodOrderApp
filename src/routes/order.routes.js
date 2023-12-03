@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/order.controller');
-const {verifyToken} = require("../middlewares/auth");
 
-router.get('/', verifyToken, orderController.findAll);
+router.get('/', orderController.findAll);
 
-router.get('/:id', verifyToken, orderController.findById);
+router.get('/withfoods/:id', orderController.findByIdWithFoods);
 
-router.get('/by_user/:id', verifyToken, orderController.findByUserId);
+router.get('/:id', orderController.findById);
 
-router.post("/create", verifyToken, orderController.create);
+router.get('/by_user/:id', orderController.findByUserId);
 
-router.put('/update/:id', verifyToken, orderController.update);
+router.post("/create", orderController.create);
+
+router.put('/update/:id', orderController.update);
 
 module.exports = router

@@ -27,22 +27,19 @@
         //get the user inputs from the form
         var email= document.getElementById('email').value
         var pwd= document.getElementById('pwd').value
-        var url=`http://localhost:4001/api/users`;
+        var url= window.location.href.substring(0, window.location.href.length - 6) + `/api/users/`;
         var data = {
             'email': email,
             'password': pwd
         }
 
-        //alert(url);
-        console.log(data)
-        //alert(data);
-
         $.post(url,
             data,
-            function(data, status){
+            function(data){
                 console.log(data)
                 //alert("Data: " + data + "\nStatus: " + status);
                 if(data['errors'] == false){
+                    window.localStorage.setItem('userid', data.user.uid);
                     location.href = location.href.substring(0, location.href.length - 6)
                 }
             });

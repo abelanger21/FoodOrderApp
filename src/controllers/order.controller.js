@@ -1,19 +1,14 @@
 const Order = require('../models/order.model');
-
 exports.create = function (req, res) {
-    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-        res.status(400).send({ errors: true, message: 'Please provide all required field' });
-        return;
-    }
-
-    const order = new Order(req.body)
+    const userid = req.body.userid
+    const order = new Order(userid)
     Order.create(order, function (err, orderId) {
         if (err){
             console.log(err);
             res.status(401).json({ errors:true, message: "An unknown error has occured"});
         }else{
 
-            res.status(200).json({ errors: false, order: order, message: "Order added successfully!" });
+            res.status(200).json({ errors: false, order: orderId, message: "Order added successfully!" });
 
 
         }
@@ -68,3 +63,11 @@ exports.findAll = function (req, res) {
     });
 };
 
+exports.findByIdWithFoods = function(req, res){
+    var id=req.params.id
+    Order.findByUserIdWithFoods(id, function (err, orders) {
+        if (err)
+            res.send(err);
+        res.status(200).json({errors: false, data:orders});
+    });
+};

@@ -1,22 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const mealplanController = require('../controllers/mealplan.controller');
-const {verifyToken} = require("../middlewares/auth");
 
 //get all users  
-router.get('/', verifyToken, mealplanController.findAll);
+router.get('/', mealplanController.findAll);
 
 //fetch all
-router.get('/:id', verifyToken, mealplanController.findById);
+router.get('/:id', mealplanController.findById);
 
 //create 
-router.post("/create", verifyToken, mealplanController.create);
+router.post("/create", mealplanController.create);
 
 // Updates the employee
-router.put('/update', verifyToken, mealplanController.update);
+router.put('/update', mealplanController.update);
 
 // deletes the mealplan
-router.put('/delete', verifyToken, mealplanController.delete);
+router.put('/delete', mealplanController.delete);
 
 
 

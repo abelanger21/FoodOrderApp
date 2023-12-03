@@ -22,19 +22,13 @@ exports.login = function (req, res) {
             if (user==null){
                 res.status(401).json({ errors:true, message: "Invalid username/password"});
             }else{
-                const token = createToken(user.email);
-                res.cookie("jwt", token, {
-                    withCredentials: true,
-                    httpOnly: false,
-                    maxAge: Max_Age * 1000,
-                });
-                delete user.id
+                // store user id
                 delete user.password
           
             if(user.status==0){
                 res.status(401).json({ errors:true, message: "Your access to this account has been restricted. contact the admin"});
             }else{
-                res.status(200).json({ errors:false,token:token, user: user.email, data:user});
+                res.status(200).json({ errors:false, user: user, data:user});
             }
 
     

@@ -40,7 +40,6 @@ Menu.findAll = function (result) {
             result(null, err);
         }
         else {
-            console.log('menu : ', res);
             result(null, res);
         }
     });

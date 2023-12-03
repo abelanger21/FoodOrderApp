@@ -11,18 +11,32 @@
 </head>
 <body>
     <h1>Food Order App</h1>
+    <button onclick="Logout()">Logout</button>
     <h3>Order Food</h3>
     <div>
         <select id="menuid" class="js-data-example-ajax" placeholder="select menu item" name="menuid">
             <option value="" disabled selected>Select Menu Item</option>
         </select>
-        <button onclick="newOrder()">Submit</button>
+        <button id='submit_button' onclick="newOrder()">Submit</button>
     </div>
     <h3>Order History</h3>
 
+    <table id="table">
+        <tr>
+            <th>Order Id</th>
+            <th>Food Ordered</th>
+            <th>Expence</th>
+            <th>Ordered At</th>
+        </tr>
+    </table>
+
     <script>
+        const userid = window.localStorage.getItem('userid')
+        if (userid == 'undefined'){
+            window.location.replace(window.location.href + 'login');
+        }
+
         $.getJSON((window.location + 'api/menus'), function(data) {
-            // JSON result in `data` variable
             $.each(data.data, function (i, item) {
                 $('#menuid').append($('<option>', {
                     value: item.menuid,
@@ -31,9 +45,27 @@
             });
         });
 
+
+        $.getJSON((window.location + 'api/orders/withFoods/' + userid), function(data) {
+            // JSON result in `data` variable
+            $.each(data.data, function (i, item) {
+                $('#table').append('<tr><td>' + item.orderid + '</td><td>' + item.foodname + '</td><td>' + item.expence + '</td><td>' + item.cdate + '</td></tr>');
+            });
+        });
+
+        function Logout(){
+            window.localStorage.setItem('userid', 'undefined');
+            window.location.reload()
+        }
+
         function newOrder(){
             var menuid= document.getElementById('menuid').value
-            alert(menuid)
+            if (menuid != '') {
+                $.post(window.location + 'api/orders/create', {'userid': userid}, function (data) {
+                    const orderid = data.order
+                    $.post(window.location + 'api/orderfood/create', {'menuid': menuid, 'orderid': orderid});
+                });
+            }
         }
     </script>
 </body>

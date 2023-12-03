@@ -13,7 +13,6 @@ OrderFood.create = function (orderfood, result){
             result(err, null);
         }
         else {
-            console.log(res.insertId);
             result(null, res.insertId);
             // result(null, user.email);
         }
